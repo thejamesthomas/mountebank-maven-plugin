@@ -17,12 +17,13 @@ public class DownloadPageScraperTest {
     public void shouldGetUrlForOSXBinaryWhenOnOSX() throws IOException {
         System.setProperty("os.name", OS.OSX.getValue());
 
-        Connection connection = mock(Connection.class);
         Document document = Jsoup.parse(new File("src/test/resources/mbtest.html"), "UTF-8");
+
+        Connection connection = mock(Connection.class);
         when(connection.get()).thenReturn(document);
 
-        DownloadPageScraper pageParser = new DownloadPageScraper(connection);
-        String binaryUrl = pageParser.getLatestBinaryUrl();
+        DownloadPageScraper pageScraper = new DownloadPageScraper(connection);
+        String binaryUrl = pageScraper.getLatestBinaryUrl();
 
         assertThat(binaryUrl).isEqualTo("https://s3.amazonaws.com/mountebank/v1.2/mountebank-v1.2.56-darwin-x64.tar.gz");
     }

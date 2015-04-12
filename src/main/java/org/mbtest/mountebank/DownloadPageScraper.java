@@ -4,6 +4,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import org.jsoup.Connection;
+import org.jsoup.helper.HttpConnection;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -20,12 +21,15 @@ public class DownloadPageScraper {
 
     private Connection connect;
 
+    public DownloadPageScraper() {
+        this.connect = HttpConnection.connect(DEFAULT_URL);
+    }
+
     public DownloadPageScraper(Connection connect) {
         this.connect = connect;
     }
 
     public String getLatestBinaryUrl() throws IOException {
-        connect.url(DEFAULT_URL);
         Document document = connect.get();
         Elements anchors = document.select("a[href*=\"s3.amazonaws.com\"]");
 
