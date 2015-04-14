@@ -4,10 +4,10 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import org.jsoup.Connection;
-import org.jsoup.helper.HttpConnection;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.mbtest.mountebank.utils.OS;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -16,20 +16,10 @@ import java.util.HashMap;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 
-public class DownloadPageScraper {
-    private final static String DEFAULT_URL = "http://www.mbtest.org/docs/install";
+public class Scraper {
+    public final static String DOWNLOAD_PAGE_URL = "http://www.mbtest.org/docs/install";
 
-    private Connection connect;
-
-    public DownloadPageScraper() {
-        this.connect = HttpConnection.connect(DEFAULT_URL);
-    }
-
-    public DownloadPageScraper(Connection connect) {
-        this.connect = connect;
-    }
-
-    public String getLatestBinaryUrl() throws IOException {
+    public String getBinaryUrlFromDownloadPage(Connection connect) throws IOException {
         Document document = connect.get();
         Elements anchors = document.select("a[href*=\"s3.amazonaws.com\"]");
 
@@ -38,10 +28,11 @@ public class DownloadPageScraper {
     }
 
     private String getUrlForCurrentOperatingSystem(HashMap<String, String> binaryUrls) {
-        String currentOs = System.getProperty("os.name");
+        String currentOs = System.getProperty(OS.OS_NAME);
+        String currentArch = System.getProperty(OS.OS_ARCH);
         String osKey = null;
         for(OS os : OS.values()) {
-            if(os.getValue().equals(currentOs)) {
+            if((os.getName().contains(currentOs) || currentOs.contains(os.getName())) && os.getArch().equals(currentArch)) {
                 osKey = os.getKey();
                 break;
             }

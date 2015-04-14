@@ -1,4 +1,4 @@
-package org.mbtest.mountebank;
+package org.mbtest.mountebank.utils;
 
 import org.junit.Test;
 

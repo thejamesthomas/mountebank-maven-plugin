@@ -1,4 +1,4 @@
-package org.mbtest.mountebank;
+package org.mbtest.mountebank.utils;
 
 import java.net.MalformedURLException;
 import java.net.URL;
