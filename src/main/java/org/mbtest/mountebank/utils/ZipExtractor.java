@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ZipExtractor {
-    public static void extract(File inputFile, File targetDirectory) throws IOException {
+    public void extract(File inputFile, File targetDirectory) throws IOException {
         Archiver archiver = ArchiverFactory.createArchiver(ArchiveFormat.ZIP);
         archiver.extract(inputFile, targetDirectory);
     }

@@ -13,6 +13,6 @@ public class TarGzExtractorTest {
         File inputFile = new File("src/test/resources/mountebank-v1.2.56-darwin-x64.tar.gz");
         File targetDirectory = new File("target");
 
-        TarGzExtractor.extract(inputFile, targetDirectory);
+        new TarGzExtractor().extract(inputFile, targetDirectory);
     }
 }
