@@ -24,4 +24,8 @@ public enum OS {
         this.name = name;
         this.arch = arch;
     }
+
+    public boolean isOS(String compareTo) {
+        return this.getName().contains(compareTo) || compareTo.contains(this.getName());
+    }
 }
