@@ -18,7 +18,7 @@ public class RunnerTest {
     @Ignore
     @Test
     public void shouldRunMountebank() throws IOException, InterruptedException {
-            Runner runner = new Runner(Runtime.getRuntime(), new NodeDirectoryFinder(new NodeDirectoryVisitor(), FileSystems.getDefault()));
+        Runner runner = new Runner(Runtime.getRuntime(), new NodeDirectoryFinder(new NodeDirectoryVisitor(), FileSystems.getDefault()));
         runner.runMountebank(new File("target/mountebank-v1.2.56-darwin-x64"));
         runner.stopMountebank();
     }

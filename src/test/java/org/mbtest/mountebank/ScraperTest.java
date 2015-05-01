@@ -1,5 +1,6 @@
 package org.mbtest.mountebank;
 
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,6 +25,18 @@ public class ScraperTest {
         document = Jsoup.parse(new File("src/test/resources/mbtest.html"), "UTF-8");
         connection = mock(Connection.class);
         when(connection.get()).thenReturn(document);
+    }
+
+    @Ignore
+    @Test
+    public void shouldScrape() throws IOException {
+        System.setProperty(OS_NAME, OSX.getName());
+        System.setProperty(OS_ARCH, OSX.getArch());
+        Scraper scraper = new Scraper();
+
+        String url = scraper.getBinaryUrlFromDownloadPage(Jsoup.connect("http://www.mbtest.org/docs/install"));
+
+        assertThat(url).isEqualTo("https://s3.amazonaws.com/mountebank/v1.2/mountebank-v1.2.103-darwin-x64.tar.gz");
     }
 
     @Test
