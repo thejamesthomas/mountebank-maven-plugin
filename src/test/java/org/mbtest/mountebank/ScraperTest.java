@@ -1,10 +1,10 @@
 package org.mbtest.mountebank;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
