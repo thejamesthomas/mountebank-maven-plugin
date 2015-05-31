@@ -17,10 +17,15 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 
 public class Scraper {
-    public final static String DOWNLOAD_PAGE_URL = "http://www.mbtest.org/docs/install";
+    public final static String DEFAULT_DOWNLOAD_PAGE_URL = "http://www.mbtest.org/docs/install";
+    private Connection connection;
 
-    public String getBinaryUrlFromDownloadPage(Connection connect) throws IOException {
-        Document document = connect.get();
+    public Scraper(Connection connection) {
+        this.connection = connection;
+    }
+
+    public String getBinaryUrlFromDownloadPage() throws IOException {
+        Document document = connection.get();
         Elements anchors = document.select("a[href*=\"s3.amazonaws.com\"]");
 
         HashMap<String, String> binaryUrls = getUrlsToBinaries(anchors);
@@ -48,7 +53,7 @@ public class Scraper {
     private HashMap<String, String> getLinksFromElements(Collection<Element> elements) {
         Collection<HashMap.SimpleEntry<String, String>> keysToHrefs = Collections2.transform(newArrayList(elements), new Function<Element, HashMap.SimpleEntry<String, String>>() {
             public HashMap.SimpleEntry<String, String> apply(Element element) {
-                return new HashMap.SimpleEntry<String, String>(element.text(), element.attr("href"));
+                return new HashMap.SimpleEntry<>(element.text(), element.attr("href"));
             }
         });
         HashMap<String, String> keysToHrefsMap = newHashMap();

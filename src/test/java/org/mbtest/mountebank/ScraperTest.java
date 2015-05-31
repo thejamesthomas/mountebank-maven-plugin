@@ -32,9 +32,9 @@ public class ScraperTest {
     public void shouldScrape() throws IOException {
         System.setProperty(OS_NAME, OSX.getName());
         System.setProperty(OS_ARCH, OSX.getArch());
-        Scraper scraper = new Scraper();
+        Scraper scraper = new Scraper(Jsoup.connect("http://www.mbtest.org/docs/install"));
 
-        String url = scraper.getBinaryUrlFromDownloadPage(Jsoup.connect("http://www.mbtest.org/docs/install"));
+        String url = scraper.getBinaryUrlFromDownloadPage();
 
         assertThat(url).isEqualTo("https://s3.amazonaws.com/mountebank/v1.2/mountebank-v1.2.103-darwin-x64.tar.gz");
     }
@@ -44,8 +44,8 @@ public class ScraperTest {
         System.setProperty(OS_NAME, OSX.getName());
         System.setProperty(OS_ARCH, OSX.getArch());
 
-        Scraper pageScraper = new Scraper();
-        String binaryUrl = pageScraper.getBinaryUrlFromDownloadPage(connection);
+        Scraper pageScraper = new Scraper(connection);
+        String binaryUrl = pageScraper.getBinaryUrlFromDownloadPage();
 
         assertThat(binaryUrl).isEqualTo("https://s3.amazonaws.com/mountebank/v1.2/mountebank-v1.2.56-darwin-x64.tar.gz");
     }
@@ -55,8 +55,8 @@ public class ScraperTest {
         System.setProperty(OS_NAME, LINUX_x86.getName());
         System.setProperty(OS_ARCH, LINUX_x86.getArch());
 
-        Scraper pageScraper = new Scraper();
-        String binaryUrl = pageScraper.getBinaryUrlFromDownloadPage(connection);
+        Scraper pageScraper = new Scraper(connection);
+        String binaryUrl = pageScraper.getBinaryUrlFromDownloadPage();
 
         assertThat(binaryUrl).isEqualTo("https://s3.amazonaws.com/mountebank/v1.2/mountebank-v1.2.56-linux-x86.tar.gz");
     }
@@ -66,8 +66,8 @@ public class ScraperTest {
         System.setProperty(OS_NAME, LINUX_x64.getName());
         System.setProperty(OS_ARCH, LINUX_x64.getArch());
 
-        Scraper pageScraper = new Scraper();
-        String binaryUrl = pageScraper.getBinaryUrlFromDownloadPage(connection);
+        Scraper pageScraper = new Scraper(connection);
+        String binaryUrl = pageScraper.getBinaryUrlFromDownloadPage();
 
         assertThat(binaryUrl).isEqualTo("https://s3.amazonaws.com/mountebank/v1.2/mountebank-v1.2.56-linux-x64.tar.gz");
     }
@@ -77,8 +77,8 @@ public class ScraperTest {
         System.setProperty(OS_NAME, WIN_x86.getName());
         System.setProperty(OS_ARCH, WIN_x86.getArch());
 
-        Scraper pageScraper = new Scraper();
-        String binaryUrl = pageScraper.getBinaryUrlFromDownloadPage(connection);
+        Scraper pageScraper = new Scraper(connection);
+        String binaryUrl = pageScraper.getBinaryUrlFromDownloadPage();
 
         assertThat(binaryUrl).isEqualTo("https://s3.amazonaws.com/mountebank/v1.2/mountebank-v1.2.56-win-x86.zip");
     }
@@ -88,8 +88,8 @@ public class ScraperTest {
         System.setProperty(OS_NAME, WIN_x64.getName());
         System.setProperty(OS_ARCH, WIN_x64.getArch());
 
-        Scraper pageScraper = new Scraper();
-        String binaryUrl = pageScraper.getBinaryUrlFromDownloadPage(connection);
+        Scraper pageScraper = new Scraper(connection);
+        String binaryUrl = pageScraper.getBinaryUrlFromDownloadPage();
 
         assertThat(binaryUrl).isEqualTo("https://s3.amazonaws.com/mountebank/v1.2/mountebank-v1.2.56-win-x64.zip");
     }
@@ -99,8 +99,8 @@ public class ScraperTest {
         System.setProperty(OS_NAME, "Windows XP");
         System.setProperty(OS_ARCH, WIN_x86.getArch());
 
-        Scraper pageScraper = new Scraper();
-        String binaryUrl = pageScraper.getBinaryUrlFromDownloadPage(connection);
+        Scraper pageScraper = new Scraper(connection);
+        String binaryUrl = pageScraper.getBinaryUrlFromDownloadPage();
 
         assertThat(binaryUrl).isEqualTo("https://s3.amazonaws.com/mountebank/v1.2/mountebank-v1.2.56-win-x86.zip");
     }
@@ -110,8 +110,8 @@ public class ScraperTest {
         System.setProperty(OS_NAME, "WindowsThisIsNotARealVersion");
         System.setProperty(OS_ARCH, WIN_x86.getArch());
 
-        Scraper pageScraper = new Scraper();
-        String binaryUrl = pageScraper.getBinaryUrlFromDownloadPage(connection);
+        Scraper pageScraper = new Scraper(connection);
+        String binaryUrl = pageScraper.getBinaryUrlFromDownloadPage();
 
         assertThat(binaryUrl).isEqualTo("https://s3.amazonaws.com/mountebank/v1.2/mountebank-v1.2.56-win-x86.zip");
     }
@@ -121,8 +121,8 @@ public class ScraperTest {
         System.setProperty(OS_NAME, "WindowsThisIsAlsoNotARealVersion");
         System.setProperty(OS_ARCH, WIN_x64.getArch());
 
-        Scraper pageScraper = new Scraper();
-        String binaryUrl = pageScraper.getBinaryUrlFromDownloadPage(connection);
+        Scraper pageScraper = new Scraper(connection);
+        String binaryUrl = pageScraper.getBinaryUrlFromDownloadPage();
 
         assertThat(binaryUrl).isEqualTo("https://s3.amazonaws.com/mountebank/v1.2/mountebank-v1.2.56-win-x64.zip");
     }
