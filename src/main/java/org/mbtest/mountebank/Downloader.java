@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Downloader {
     private FileUtilsWrapper fileUtilsWrapper;
 
-    public void download(String url, File file) throws IOException {
-        fileUtilsWrapper.download(url, file);
+    public void download(String url, File targetFile) throws IOException {
+        fileUtilsWrapper.download(url, targetFile);
     }
 }
