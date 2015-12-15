@@ -2,6 +2,7 @@ package org.mbtest.mountebank.utils;
 
 import lombok.Getter;
 
+import java.io.File;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
@@ -12,12 +13,12 @@ import static java.nio.file.FileVisitResult.TERMINATE;
 
 public class NodeDirectoryVisitor extends SimpleFileVisitor<Path> {
     @Getter
-    private String result = null;
+    private File result = null;
 
     @Override
     public FileVisitResult preVisitDirectory(Path file, BasicFileAttributes attributes) {
         if (file.getFileName().toString().contains("node")) {
-            this.result = file.getFileName().toString();
+            this.result = file.toFile();
             return TERMINATE;
         }
         return CONTINUE;

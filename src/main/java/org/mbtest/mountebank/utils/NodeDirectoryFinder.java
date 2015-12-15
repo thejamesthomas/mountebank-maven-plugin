@@ -1,5 +1,6 @@
 package org.mbtest.mountebank.utils;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
@@ -14,7 +15,7 @@ public class NodeDirectoryFinder {
         this.fileSystem = fileSystem;
     }
 
-    public String findNodeDirectory(String targetDirectoryPath) throws IOException {
+    public File findNodeDirectory(String targetDirectoryPath) throws IOException {
         Files.walkFileTree(fileSystem.getPath(targetDirectoryPath), directoryVisitor);
         return directoryVisitor.getResult();
     }

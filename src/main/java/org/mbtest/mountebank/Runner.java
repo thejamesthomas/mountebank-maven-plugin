@@ -1,38 +1,37 @@
 package org.mbtest.mountebank;
 
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.logging.Log;
+import org.mbtest.mountebank.system.CommandFactory;
+import org.mbtest.mountebank.system.OSDetector;
+import org.mbtest.mountebank.system.ProcessBuilderAdapter;
 import org.mbtest.mountebank.utils.NodeDirectoryFinder;
 
 import java.io.File;
 import java.io.IOException;
 
-import static org.mbtest.mountebank.utils.OS.*;
-
 public class Runner {
 
-    private final Runtime runtime;
-    private Process mbProcess;
+    private static Process mbProcess;
     private NodeDirectoryFinder nodeDirectoryFinder;
+    private Log logger;
 
-    public Runner(Runtime runtime, NodeDirectoryFinder nodeDirectoryFinder) {
-        this.runtime = runtime;
+    public Runner(final NodeDirectoryFinder nodeDirectoryFinder, final Log logger) {
         this.nodeDirectoryFinder = nodeDirectoryFinder;
+        this.logger = logger;
     }
 
-    public void runMountebank(final File targetDirectory) throws IOException, InterruptedException {
-        String currentOs = System.getProperty(OS_NAME);
-
-        if(OSX.isOS(currentOs)) {
-            File nodeDirectory = new File(nodeDirectoryFinder.findNodeDirectory(targetDirectory.getPath()));
-            String command = "./" + nodeDirectory.getName() + "/bin/node /mountebank/bin/mb";
-            mbProcess = runtime.exec(command, new String[]{}, nodeDirectory);
-        }
-        if(WIN_x64.isOS(currentOs)) {
-            String command = "node.exe mountebank/bin/mb";
-            mbProcess = runtime.exec(command, new String[]{}, targetDirectory);
-        }
+    public void startMountebank(final File targetDirectory) throws IOException, MojoExecutionException {
+        this.run(targetDirectory, "start");
     }
 
-    public void stopMountebank() throws IOException {
-        mbProcess.destroy();
+    public void stopMountebank(final File targetDirectory) throws IOException, MojoExecutionException {
+        this.run(targetDirectory, "stop");
+    }
+
+    private void run(final File targetDirectory, final String arg) throws IOException, MojoExecutionException {
+        final CommandFactory commandFactory = new CommandFactory(targetDirectory, this.nodeDirectoryFinder, new OSDetector(), this.logger);
+        final ProcessBuilderAdapter processBuilderAdapter = new ProcessBuilderAdapter(commandFactory, arg);
+        mbProcess = processBuilderAdapter.start();
     }
 }
