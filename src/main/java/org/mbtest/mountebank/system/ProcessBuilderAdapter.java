@@ -2,21 +2,21 @@ package org.mbtest.mountebank.system;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
+import java.io.File;
 import java.io.IOException;
 
 public class ProcessBuilderAdapter {
 
-    private String arg;
+    private ProcessBuilderWrapper processBuilderWrapper;
     private CommandFactory commandFactory;
 
-    public ProcessBuilderAdapter(final CommandFactory commandFactory, final String arg) {
+    public ProcessBuilderAdapter(final ProcessBuilderWrapper processBuilderWrapper, final CommandFactory commandFactory) {
+        this.processBuilderWrapper = processBuilderWrapper;
         this.commandFactory = commandFactory;
-        this.arg = arg;
     }
 
-    public Process start() throws IOException, MojoExecutionException {
-        final String command = this.commandFactory.getCommand();
-        final ProcessBuilder processBuilder = new ProcessBuilder().command(command, arg);
-        return processBuilder.start();
+    public Process start(final File mountebankHome, final String arg) throws IOException, MojoExecutionException {
+        final String command = this.commandFactory.getCommand(mountebankHome);
+        return this.processBuilderWrapper.start(command, arg);
     }
 }
