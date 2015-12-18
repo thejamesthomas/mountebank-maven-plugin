@@ -3,8 +3,8 @@ A Maven Plugin to help integrate Mountebank into the Maven lifecycle.
 
 Usage:
 
-  <properties>
-		<mountebank.home>/home/timw/apps/mountebank-v1.4.2-linux-x64</mountebank.home>
+      <properties>
+          <mountebank.home>/home/timw/apps/mountebank-v1.4.2-linux-x64</mountebank.home>
 	</properties>
 	
     <build>
