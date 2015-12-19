@@ -36,7 +36,7 @@ public class CommandFactory {
         else if (WIN_x64.isOS(currentOs)) {
             command =  this.mountebankHome.getAbsolutePath() + "/" + "mb.cmd";
         }
-        else if (LINUX_x64.isOS(currentOs) || LINUX_x86.isOS(currentOs)) {
+        else if (LINUX_x64.isOS(currentOs)) {
             command = this.mountebankHome.getAbsolutePath() + "/" + "mb";
         }
         else {
