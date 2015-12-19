@@ -22,20 +22,21 @@ public abstract class AbstractExecutionMojo extends AbstractMojo {
     @Parameter(property = "mountebankFolder", defaultValue = "/tmp")
     private File mountebankFolder;
 
-    private final Runner runner;
+    private Runner runner;
 
-    public AbstractExecutionMojo() {
+    protected Runner getRunner() {
+        if (this.runner == null) {
+            this.buildRunner();
+        }
+        return runner;
+    }
+
+    private void buildRunner() {
         final NodeDirectoryVisitor visitor = new NodeDirectoryVisitor();
         final NodeDirectoryFinder finder = new NodeDirectoryFinder(visitor, FileSystems.getDefault());
-        final CommandFactory commandFactory = new CommandFactory(finder, new OSDetector(), this.getLog());
+        final CommandFactory commandFactory = new CommandFactory(finder, this.mountebankFolder, new OSDetector(), this.getLog());
         final ProcessBuilderWrapper processBuilderWrapper = new ProcessBuilderWrapper();
         final ProcessBuilderAdapter processBuilderAdapter = new ProcessBuilderAdapter(processBuilderWrapper, commandFactory);
         runner = new Runner(processBuilderAdapter);
     }
-
-    protected Runner getRunner() {
-        return runner;
-    }
-
-
 }

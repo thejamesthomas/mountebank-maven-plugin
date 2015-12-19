@@ -9,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.io.File;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,26 +23,23 @@ public class RunnerTest {
     @Mock
     private Process process;
 
-    @Mock
-    File mountebankHome;
-
     @InjectMocks
     private Runner testSubject;
 
     @Test
     public void start() throws IOException, MojoExecutionException {
-        when(this.processBuilderAdapter.start(this.mountebankHome, MountebankCommandArgs.START)).thenReturn(this.process);
+        when(this.processBuilderAdapter.start(MountebankCommandArgs.START)).thenReturn(this.process);
 
-        this.testSubject.startMountebank(this.mountebankHome);
+        this.testSubject.startMountebank();
         final Process expected = Runner.getProcess();
         assertThat(expected).isSameAs(this.process);
     }
 
     @Test
     public void stop() throws IOException, MojoExecutionException {
-        when(this.processBuilderAdapter.start(this.mountebankHome, MountebankCommandArgs.STOP)).thenReturn(this.process);
+        when(this.processBuilderAdapter.start(MountebankCommandArgs.STOP)).thenReturn(this.process);
 
-        this.testSubject.stopMountebank(this.mountebankHome);
+        this.testSubject.stopMountebank();
         final Process expected = Runner.getProcess();
         assertThat(expected).isSameAs(this.process);
     }

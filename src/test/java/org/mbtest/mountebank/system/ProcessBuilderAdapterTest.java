@@ -6,8 +6,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.io.File;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -26,18 +24,15 @@ public class ProcessBuilderAdapterTest {
     @Mock
     private Process process;
 
-    @Mock
-    private File mountebankHome;
-
     @InjectMocks
     private ProcessBuilderAdapter testSubject;
 
     @Test
     public void testStart() throws Exception {
-        when(this.commandFactory.getCommand(this.mountebankHome)).thenReturn(COMMAND);
+        when(this.commandFactory.getCommand()).thenReturn(COMMAND);
         when(this.processBuilderWrapper.start(COMMAND, ARG)).thenReturn(this.process);
 
-        final Process result = this.testSubject.start(this.mountebankHome, ARG);
+        final Process result = this.testSubject.start(ARG);
         assertThat(result).isSameAs(this.process);
     }
 }

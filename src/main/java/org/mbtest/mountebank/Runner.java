@@ -4,7 +4,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.mbtest.mountebank.system.MountebankCommandArgs;
 import org.mbtest.mountebank.system.ProcessBuilderAdapter;
 
-import java.io.File;
 import java.io.IOException;
 
 public class Runner {
@@ -19,16 +18,16 @@ public class Runner {
         this.processBuilderAdapter = processBuilderAdapter;
     }
 
-    public void startMountebank(final File mountebankHome) throws IOException, MojoExecutionException {
-        this.run(mountebankHome, MountebankCommandArgs.START);
+    public void startMountebank() throws IOException, MojoExecutionException {
+        this.run(MountebankCommandArgs.START);
     }
 
-    public void stopMountebank(final File mountebankHome) throws IOException, MojoExecutionException {
-        this.run(mountebankHome, MountebankCommandArgs.STOP);
+    public void stopMountebank() throws IOException, MojoExecutionException {
+        this.run(MountebankCommandArgs.STOP);
     }
 
-    private void run(final File mountebankHome, final String arg) throws IOException, MojoExecutionException {
-        mbProcess = this.processBuilderAdapter.start(mountebankHome, arg);
+    private void run(final String arg) throws IOException, MojoExecutionException {
+        mbProcess = this.processBuilderAdapter.start(arg);
     }
 
     protected static Process getProcess() {

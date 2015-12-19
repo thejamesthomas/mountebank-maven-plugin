@@ -2,7 +2,6 @@ package org.mbtest.mountebank.system;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
-import java.io.File;
 import java.io.IOException;
 
 public class ProcessBuilderAdapter {
@@ -15,8 +14,8 @@ public class ProcessBuilderAdapter {
         this.commandFactory = commandFactory;
     }
 
-    public Process start(final File mountebankHome, final String arg) throws IOException, MojoExecutionException {
-        final String command = this.commandFactory.getCommand(mountebankHome);
+    public Process start(final String arg) throws IOException, MojoExecutionException {
+        final String command = this.commandFactory.getCommand();
         return this.processBuilderWrapper.start(command, arg);
     }
 }

@@ -38,7 +38,7 @@ public class CommandFactoryTest {
     public void get_command_linux_x64() throws Exception {
         when(this.mountebankHome.getAbsolutePath()).thenReturn("/tmp");
         when(this.osDetector.getCurrentOS()).thenReturn(OS.LINUX_x64.getName());
-        final String actual = this.testSubject.getCommand(this.mountebankHome);
+        final String actual = this.testSubject.getCommand();
 
         assertThat(actual, equalTo("/tmp/mb"));
     }
@@ -47,7 +47,7 @@ public class CommandFactoryTest {
     public void get_command_linux_x86() throws Exception {
         when(this.mountebankHome.getAbsolutePath()).thenReturn("/tmp");
         when(this.osDetector.getCurrentOS()).thenReturn(OS.LINUX_x86.getName());
-        final String actual = this.testSubject.getCommand(this.mountebankHome);
+        final String actual = this.testSubject.getCommand();
 
         assertThat(actual, equalTo("/tmp/mb"));
     }
@@ -56,7 +56,7 @@ public class CommandFactoryTest {
     public void get_command_windows_x64() throws Exception {
         when(this.mountebankHome.getAbsolutePath()).thenReturn("C:\\temp");
         when(this.osDetector.getCurrentOS()).thenReturn(OS.WIN_x64.getName());
-        final String actual = this.testSubject.getCommand(this.mountebankHome);
+        final String actual = this.testSubject.getCommand();
 
         assertThat(actual, equalTo("C:\\temp/mb.cmd"));
     }
@@ -65,7 +65,7 @@ public class CommandFactoryTest {
     public void get_command_windows_x86() throws Exception {
         when(this.mountebankHome.getAbsolutePath()).thenReturn("C:\\temp");
         when(this.osDetector.getCurrentOS()).thenReturn(OS.WIN_x86.getName());
-        final String actual = this.testSubject.getCommand(this.mountebankHome);
+        final String actual = this.testSubject.getCommand();
 
         assertThat(actual, equalTo("C:\\temp/mb.cmd"));
     }
@@ -78,7 +78,7 @@ public class CommandFactoryTest {
         when(this.nodeDirectoryFinder.findNodeDirectory("/tmp")).thenReturn(nodeDirectory);
         when(nodeDirectory.getName()).thenReturn("tmp/mountebank");
         when(this.osDetector.getCurrentOS()).thenReturn(OS.OSX.getName());
-        final String actual = this.testSubject.getCommand(this.mountebankHome);
+        final String actual = this.testSubject.getCommand();
 
         assertThat(actual, equalTo("./tmp/mountebank/bin/node /mountebank/bin/mb"));
     }
