@@ -5,6 +5,7 @@ import com.google.common.jimfs.Jimfs;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
@@ -20,7 +21,7 @@ public class NodeDirectoryFinderTest {
 
         NodeDirectoryFinder nodeDirectoryFinder = new NodeDirectoryFinder(new NodeDirectoryVisitor(), mockFS);
 
-        String nodeDirectoryPath = nodeDirectoryFinder.findNodeDirectory("target");
+        File nodeDirectoryPath = nodeDirectoryFinder.findNodeDirectory("target");
 
         assertThat(nodeDirectoryPath).isEqualTo("node-directory");
     }
@@ -31,7 +32,7 @@ public class NodeDirectoryFinderTest {
 
         NodeDirectoryFinder nodeDirectoryFinder = new NodeDirectoryFinder(new NodeDirectoryVisitor(), mockFS);
 
-        String nodeDirectoryPath = nodeDirectoryFinder.findNodeDirectory("target");
+        File nodeDirectoryPath = nodeDirectoryFinder.findNodeDirectory("target");
 
         assertThat(nodeDirectoryPath).isEqualTo("node-directory");
     }
@@ -42,7 +43,7 @@ public class NodeDirectoryFinderTest {
 
         NodeDirectoryFinder nodeDirectoryFinder = new NodeDirectoryFinder(new NodeDirectoryVisitor(), mockFS);
 
-        String nodeDirectoryPath = nodeDirectoryFinder.findNodeDirectory("target");
+        File nodeDirectoryPath = nodeDirectoryFinder.findNodeDirectory("target");
 
         assertThat(nodeDirectoryPath).isEqualTo("node-directory");
     }
