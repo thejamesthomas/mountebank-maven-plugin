@@ -31,7 +31,8 @@ public class CommandFactory {
 
         if (OSX.isOS(currentOs)) {
             File nodeDirectory = nodeDirectoryFinder.findNodeDirectory(this.mountebankHome.getPath());
-            command =  this.mountebankHome.getAbsolutePath() + "/" + "mb";
+            //command =  "./" + nodeDirectory.getName() + "/bin/node /mountebank/bin/mb";
+	    command =  this.mountebankHome.getAbsolutePath() + "/" + "mb";
         }
         else if (WIN_x64.isOS(currentOs)) {
             command =  this.mountebankHome.getAbsolutePath() + "/" + "mb.cmd";
