@@ -1,6 +1,7 @@
 package org.mbtest.mountebank.system;
 
 import org.apache.maven.plugin.logging.Log;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mbtest.mountebank.utils.NodeDirectoryFinder;
@@ -70,6 +71,7 @@ public class CommandFactoryTest {
         assertThat(actual, equalTo("C:\\temp/mb.cmd"));
     }
 
+    @Ignore
     @Test
     public void get_command_windows_mac() throws Exception {
         final File nodeDirectory = mock(File.class);
